@@ -8,19 +8,23 @@ describe("Field with the placeholder support added", function() {
 	it("shows the placeholder text when the field is empty", function() {
 		expect(inputBox.get(0).value).toBe(placeholderText);
 	});
+
+	it("val() returns empty string when placeholder is showing", function() {
+		expect(inputBox.val()).toBe('');
+	});
 	
 	describe("When the field receives focus", function() {
 		it("leaves the field alone if the user has entered text", function() {
-			inputBox.val('User entered text');
+			inputBox.get(0).value = 'User entered text';
 			inputBox.trigger('focus');
 
-			expect(inputBox.val()).toBe('User entered text');
+			expect(inputBox.get(0).value).toBe('User entered text');
 		});
 
 		it("hides the placeholder text if the field is empty", function() {
 			inputBox.trigger('focus');
 
-			expect(inputBox.val()).toBe('');
+			expect(inputBox.get(0).value).toBe('');
 		});
 
 		it("restores the original text color when the placeholder text is hidden", function() {
@@ -32,16 +36,16 @@ describe("Field with the placeholder support added", function() {
 
 	describe("When the field loses focus", function() {
 		it("leaves the field alone if the user has entered text", function() {
-			inputBox.val('User entered text');
+			inputBox.get(0).value = 'User entered text';
 			inputBox.trigger('blur');
 		
-			expect(inputBox.val()).toBe('User entered text');
+			expect(inputBox.get(0).value).toBe('User entered text');
 		});
 
 		it("shows the placeholder text when the field is empty", function() {
-			inputBox.val('');
+			inputBox.get(0).value = '';
 			inputBox.trigger('blur');
-			expect(inputBox.val()).toBeShowingPlaceholderText();
+			expect(inputBox.get(0).value).toBeShowingPlaceholderText();
 		});
 
 		it("colors the placeholder text grey", function() {

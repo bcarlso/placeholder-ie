@@ -14,7 +14,7 @@
 			};
 		
 			target.placeholderIsDisplayed = function() {
-				return target.val() == target.placeholder();			
+				return target.get(0).value == target.placeholder();			
 			};
 		
 			target.isEmpty = function() {
@@ -40,6 +40,16 @@
 				 'blur': showPlaceholder
 			});
 		
+			$.valHooks.input = {
+				get: function(element) {
+					if(element.value == $(element).attr('placeholder')) {
+						return '';
+						}
+					else
+						return element.value
+				}
+			};
+			
 			showPlaceholder();
 		}
 		
